@@ -20,7 +20,20 @@ exports.postAddContact = (req, res, next) => {
 exports.getContact = (req, res, next) => {
     const contactId = req.params.contactId;
     Contact.findById(contactId, contact => {
-        console.log(contact);
+        res.render('admin/update-contact', {
+            pageTitle: contact.name,
+            path: '/add-contact',
+            contact: contact
+        })
     });
-    res.redirect('/');
 };
+
+exports.postUpdatedContact = (req, res, next) => {
+    const contactId = req.body.id;
+    const name = req.body.name;
+    const dob = req.body.dob;
+    const tel = req.body.tel;
+    const email = req.body.email;
+    Contact.updateContact(contactId, name, dob, tel, email);
+    res.redirect('/');
+}
