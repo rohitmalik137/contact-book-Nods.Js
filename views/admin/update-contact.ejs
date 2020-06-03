@@ -8,8 +8,9 @@
     <main class="main">
         <div class="main__header"><strong>rm-phonebook</strong></div>
         <div class="grid form-outer">
-            <form class="add-contact-form" action="update" method="POST">
-                <h2>Add Contact</h2>
+            <form class="add-contact-form" action="/update-contact" method="POST">
+                <h2>Update Contact</h2>
+                <hr>
                 <div class="form-control">
                     <input class="input" type="text" name="name" value="<%= contact.name %>" id="name" placeholder="Name" required>
                 </div>

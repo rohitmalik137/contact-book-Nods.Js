@@ -26,7 +26,9 @@
                                     <a href="/update-contact/<%= cont.id %>">
                                         <button class="btn" type="submit" name="Edit">Edit</button>
                                     </a>
-                                    <button class="btn danger" type="submit" name="Remove">Remove</button>
+                                    <form action="/delete-contact/<%= cont.id %>" method="post">
+                                        <button class="btn danger" type="submit" name="Remove">Remove</button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="extendable__lower-section">

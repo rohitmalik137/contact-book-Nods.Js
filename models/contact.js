@@ -30,6 +30,15 @@ module.exports = class Contact {
         });
     }
 
+    static deleteById(id){
+        getContactsFromFile(contacts => {
+            const contactsAfterDeletion = contacts.filter(cont => cont.id != id);
+            fs.writeFile(p, JSON.stringify(contactsAfterDeletion), (err) => {
+                console.log(err);
+           });
+        });
+    }
+
     static fetchAll(cb){
         getContactsFromFile(cb);
     }

@@ -37,3 +37,9 @@ exports.postUpdatedContact = (req, res, next) => {
     Contact.updateContact(contactId, name, dob, tel, email);
     res.redirect('/');
 }
+
+exports.deleteContact = (req, res, next) => {
+    const contactId = req.params.contactId;
+    Contact.deleteById(contactId);
+    res.redirect('/');
+}
