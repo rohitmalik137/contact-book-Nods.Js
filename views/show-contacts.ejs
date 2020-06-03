@@ -38,11 +38,13 @@
                                             &#9742;<span><%= cont.tel %></span>
                                         </div>
                                     <% }else{ %>
-                                        <%  for (let tele of cont.tel) { %>
-                                            <div class="extendable__lower-section__rows">
-                                                &#9742;<span><%= tele %></span>
-                                            </div>
-                                        <% } 
+                                        <%  for (let tele of cont.tel) { 
+                                            if(tele !== "") { %>
+                                                <div class="extendable__lower-section__rows">
+                                                    &#9742;<span><%= tele %></span>
+                                                </div>
+                                            <% } 
+                                        } 
                                     } %>
                                 </div>
                                 <div>
@@ -51,12 +53,14 @@
                                             &#9742;<span><%= cont.email %></span>
                                         </div>
                                     <% }else{ %>
-                                        <% for (let mail of cont.email) { %>
-                                            <div class="extendable__lower-section__rows">
-                                                <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                <span><%= mail %></span>
-                                            </div>
-                                        <% } 
+                                        <% for (let mail of cont.email) {
+                                            if(mail !== "") { %>
+                                                <div class="extendable__lower-section__rows">
+                                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    <span><%= mail %></span>
+                                                </div>
+                                            <% } 
+                                        } 
                                     } %>
                                 </div>
                             </div>
