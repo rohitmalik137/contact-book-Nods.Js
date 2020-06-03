@@ -51,11 +51,17 @@
 .extendable__lower-section{
     width: 90%;
     margin: 10px auto;
+    padding: 0 10px;
     display: flex;
-    justify-content: space-between;
-    padding: 10px;
+    justify-content: center;
+    align-items: center;
     background-color: white;
     border: 1px solid black;
+}
+.extendable__lower-section__rows{
+    /* display: flex;
+    justify-content: space-between; */
+    padding: 5px;
 }
 span{
     padding: 5px;

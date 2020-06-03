@@ -8,10 +8,12 @@ exports.getAddContact = (req, res, next) => {
 };
 
 exports.postAddContact = (req, res, next) => {
+    var tele = 'tel[]';
+    var mail = 'email[]';
     const name = req.body.name;
     const dob = req.body.dob;
-    const tel = req.body.tel;
-    const email = req.body.email;
+    const tel = req.body[tele];
+    const email = req.body[mail];
     const contact = new Contact(name, dob, tel, email);
     contact.save();
     res.redirect('/');

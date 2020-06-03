@@ -32,3 +32,15 @@
     display: block;
     /* border: 1px solid black; */
 }
+
+.telNmail{
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin: 0 auto 0.25rem;
+}
+
+.plus-icon{
+    margin-left: 10px;
+    cursor: pointer;
+}
