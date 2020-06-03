@@ -1,0 +1,62 @@
+.main{
+    width: 55%;
+    margin: 40px auto;
+    border: 1px solid black;
+    padding-bottom: 30px;
+}
+.main__header{
+    background-color: rgb(158, 204, 247);
+    padding: 10px;
+    text-transform: uppercase;
+  }
+.search-box{
+    width: 60%;
+    margin: 30px auto;
+}
+.search-box__input{
+    width: 100%;
+    padding: 10px;
+    font-size: larger;
+}
+.search-box__input::placeholder{
+    text-align: right;
+}
+.grid{
+    width: 60%;
+    margin: 30px auto;
+}
+.product__title{
+    padding: 10px;
+    font-size: larger;
+}
+.card{
+    border: 1px solid black;
+    background-color: rgb(202, 225, 247);
+}
+.card__header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+.extendable__upper-section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+.extendable__buttons{
+    display: flex;
+    justify-content: space-evenly;
+}
+.extendable__lower-section{
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid black;
+}
+span{
+    padding: 5px;
+}

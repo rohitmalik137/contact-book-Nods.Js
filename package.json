@@ -1,0 +1,27 @@
+{
+  "name": "contact_book",
+  "version": "1.0.0",
+  "description": "my first node application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohitmalik137/contact-book-NodeJs.git"
+  },
+  "author": "rohit malik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rohitmalik137/contact-book-NodeJs/issues"
+  },
+  "homepage": "https://github.com/rohitmalik137/contact-book-NodeJs#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  },
+  "dependencies": {
+    "ejs": "^3.1.3",
+    "express": "^4.17.1"
+  }
+}

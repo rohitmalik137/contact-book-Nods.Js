@@ -1,0 +1,29 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/show-contacts.css">
+    <link rel="stylesheet" href="/css/add-contacts.css">
+</head>
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <main class="main">
+        <div class="main__header"><strong>rm-phonebook</strong></div>
+        <div class="grid form-outer">
+            <form class="add-contact-form" action="add-contact" method="POST">
+                <h2>Add Contact</h2>
+                <div class="form-control">
+                    <input class="input" type="text" name="name" id="name" placeholder="Name" required>
+                </div>
+                <div class="form-control">
+                    <input class="input" type="date" name="dob" id="dob" placeholder="DOB">
+                </div>
+                <div class="form-control">
+                    <input class="input" type="tel" name="tel" id="tel" placeholder="Mobile Number" required>
+                </div>
+                <div class="form-control">
+                    <input class="input" type="email" name="email" id="email" placeholder="Email" required>
+                </div>
+                <button class="btn" type="submit">Save</button>
+            </form>
+        </div>
+    </main>
+<%- include('../includes/end.ejs') %>
