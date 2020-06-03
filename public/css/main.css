@@ -67,3 +67,7 @@ body{
     background: red;
     color: white;
   }
+
+  i{
+    cursor: pointer;
+  }

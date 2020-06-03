@@ -15,9 +15,12 @@
                     <article class="card">
                         <header class="card__header">
                             <div class="product__title"><%= cont.name %></div>
-                            <div><i class="fa fa-caret-up fa-2x" aria-hidden="true"></i></div>
+                            <div>
+                                <i style="display: none;" onclick="hide_info('<%= cont.id %>')" id="<%= cont.id %>1" class="fa fa-caret-up fa-2x hide_i" aria-hidden="true"></i>
+                                <i onclick="show_info('<%= cont.id %>', '<%= count %>')" id="<%= cont.id %>2" class="fa fa-caret-down fa-2x show_i" aria-hidden="true"></i>
+                            </div>
                         </header>
-                        <main class="extendable">
+                        <main style="display: none;" id="<%= cont.id %>" class="extendable">
                             <div class="extendable__upper-section">
                                 <div>
                                     <%= cont.dob %>
@@ -72,4 +75,5 @@
             <h1>No Contacts Found!!</h1>
         <% } %>
     </main>
+    <script src="/js/add-field.js"></script>
 <%- include('includes/end.ejs') %>

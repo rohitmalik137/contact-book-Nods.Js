@@ -29,3 +29,23 @@ function delete_extra(id){
     document.getElementById(id).style.display = 'none';
     document.getElementById(id+'1').style.display = 'none';
 }
+
+function hide_info(id){
+    document.getElementById(id).style.display = 'none';
+    document.getElementById(id+'2').style.display = 'block';
+    document.getElementById(id+'1').style.display = 'none';
+    
+}
+
+function show_info(id, count){
+    for(var i=0; i<count; i++){
+        // document.getElementById(id).style.display = 'none';
+        console.log(id+'2');
+        document.getElementsByClassName('extendable')[i].style.display = 'none';
+        document.getElementsByClassName('show_i')[i].style.display = 'block';
+        document.getElementsByClassName('hide_i')[i].style.display = 'none';
+    }
+    document.getElementById(id).style.display = 'block';
+    document.getElementById(id+'2').style.display = 'none';
+    document.getElementById(id+'1').style.display = 'block';
+}
