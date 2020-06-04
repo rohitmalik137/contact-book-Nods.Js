@@ -20,7 +20,7 @@ module.exports = class Contact {
         this.dob = dob;
         this.tel = tel;
         this.email = email;
-        this._id = new mongoDb.ObjectId(id);
+        this._id = id ? new mongoDb.ObjectId(id) : null;
     }
 
     save(){
