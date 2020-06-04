@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post('/delete-contact/:contactId', adminController.deleteContact);
 
-router.post('/update-contact', adminController.postUpdatedContact)
+router.post('/update-contact', adminController.postUpdatedContact);
 router.get('/update-contact/:contactId', adminController.getContact);
 router.get('/', contactsController.getContact);
 

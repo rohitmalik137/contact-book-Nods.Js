@@ -14,7 +14,12 @@ exports.postAddContact = (req, res, next) => {
     const dob = req.body.dob;
     const tel = req.body[tele];
     const email = req.body[mail];
-    const contact = new Contact(name, dob, tel, email);
+    const contact = new Contact({
+        name: name,
+        dob: dob,
+        email: email,
+        tel: tel
+    });
     contact.save();
     res.redirect('/');
 };
@@ -56,21 +61,25 @@ exports.postUpdatedContact = (req, res, next) => {
     const dob = req.body.dob;
     const tel = req.body[tele];
     const email = req.body[mail];
-    const upCont = new Contact(name, dob, tel, email, contactId);
-    upCont
-        .save()
-        .then(result => {
+    Contact.findById(contactId)
+        .then(contact => {
+            contact.name = name;
+            contact.dob = dob;
+            contact.tel = tel;
+            contact.email = email;
+            return contact.save();
+        })
+        .then(() => {
             console.log('Updated!!');
             res.redirect('/');
         })
         .catch(err => console.log(err));
-    // Contact.updateContact(name, dob, tel, email, contactId);
-}
+};
 
 exports.deleteContact = (req, res, next) => {
     const contactId = req.params.contactId;
-    Contact.deleteById(contactId)
+    Contact.findByIdAndRemove(contactId)
         .then(() => {
             res.redirect('/');
         })
-}
+};

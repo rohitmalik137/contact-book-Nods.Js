@@ -36,6 +36,7 @@
 .card__header{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0 15px;
 }
 .extendable__upper-section{

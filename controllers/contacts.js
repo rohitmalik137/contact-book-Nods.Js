@@ -1,7 +1,7 @@
 const Contact = require('../models/contact');
 
 exports.getContact = (req, res, next) => {
-    Contact.fetchAll()
+    Contact.find()
     .then(contacts => {
         res.render('show-contacts', {
             pageTitle: 'Show Contacts',
