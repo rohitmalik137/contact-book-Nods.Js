@@ -4,6 +4,7 @@ const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const mongoConnect = require('./util/database').mongoConnect;
 const contactRoutes = require('./routes/add-contact');
 const showContactsRoutes = require('./routes/show-contacts');
 const errorController = require('./controllers/error');
@@ -21,4 +22,6 @@ app.use(showContactsRoutes);
 
 app.use(errorController.get404);
 
-app.listen(3000);
+mongoConnect(() => {
+    app.listen(3000);
+});

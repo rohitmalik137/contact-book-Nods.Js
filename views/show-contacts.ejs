@@ -16,20 +16,20 @@
                         <header class="card__header">
                             <div class="product__title"><%= cont.name %></div>
                             <div>
-                                <i style="display: none;" onclick="hide_info('<%= cont.id %>')" id="<%= cont.id %>1" class="fa fa-caret-up fa-2x hide_i" aria-hidden="true"></i>
-                                <i onclick="show_info('<%= cont.id %>', '<%= count %>')" id="<%= cont.id %>2" class="fa fa-caret-down fa-2x show_i" aria-hidden="true"></i>
+                                <i style="display: none;" onclick="hide_info('<%= cont._id %>')" id="<%= cont._id %>1" class="fa fa-caret-up fa-2x hide_i" aria-hidden="true"></i>
+                                <i onclick="show_info('<%= cont._id %>', '<%= count %>')" id="<%= cont._id %>2" class="fa fa-caret-down fa-2x show_i" aria-hidden="true"></i>
                             </div>
                         </header>
-                        <main style="display: none;" id="<%= cont.id %>" class="extendable">
+                        <main style="display: none;" id="<%= cont._id %>" class="extendable">
                             <div class="extendable__upper-section">
                                 <div>
                                     <%= cont.dob %>
                                 </div>
                                 <div class="extendable__buttons">
-                                    <a href="/update-contact/<%= cont.id %>">
+                                    <a href="/update-contact/<%= cont._id %>">
                                         <button class="btn" type="submit" name="Edit">Edit</button>
                                     </a>
-                                    <form action="/delete-contact/<%= cont.id %>" method="post">
+                                    <form action="/delete-contact/<%= cont._id %>" method="post">
                                         <button class="btn danger" type="submit" name="Remove">Remove</button>
                                     </form>
                                 </div>

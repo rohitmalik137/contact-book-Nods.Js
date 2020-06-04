@@ -1,3 +1,5 @@
+const mongoDb = require('mongodb');
+const getDb = require('../util/database').getDb;
 const fs = require('fs');
 const path = require('path');
 
@@ -13,59 +15,74 @@ const getContactsFromFile = (cb) => {
 }
 
 module.exports = class Contact {
-    constructor(name, dob, tel, email){
+    constructor(name, dob, tel, email, id){
         this.name = name;
         this.dob = dob;
         this.tel = tel;
         this.email = email;
+        this._id = new mongoDb.ObjectId(id);
     }
 
     save(){
-        this.id = Math.random().toString();
-        getContactsFromFile(contacts => {
-            contacts.push(this);
-            fs.writeFile(p, JSON.stringify(contacts), (err) => {
+        const db = getDb();
+        let dbOp;
+        if(this._id){
+            dbOp = db
+                .collection('contact-list')
+                .updateOne({_id: this._id}, {$set: this});
+        }else{
+            dbOp = db
+                .collection('contact-list')
+                .insertOne(this);
+        }
+        return dbOp
+            .then(result => {
+                console.log(result);
+            })
+            .catch(err => {
                 console.log(err);
-           });
-        });
+            });
     }
 
-    static deleteById(id){
-        getContactsFromFile(contacts => {
-            const contactsAfterDeletion = contacts.filter(cont => cont.id != id);
-            fs.writeFile(p, JSON.stringify(contactsAfterDeletion), (err) => {
+    static deleteById(contactId){
+        const db = getDb();
+        return db
+            .collection('contact-list')
+            .deleteOne({_id: new mongoDb.ObjectId(contactId)})
+            .then(result => {
+                console.log('Deleted!!');
+            })
+            .catch(err => console.log(err));
+    }
+
+    static fetchAll(){
+        // getContactsFromFile(cb);
+        const db = getDb();
+        return db
+            .collection('contact-list')
+            .find()
+            .toArray()
+            .then(contacts => {
+                console.log(contacts);
+                return contacts;
+            })
+            .catch(err => {
                 console.log(err);
-           });
-        });
+            });
     }
 
-    static fetchAll(cb){
-        getContactsFromFile(cb);
-    }
-
-    static findById(id, cb) {
-        getContactsFromFile(contacts => {
-            const contact = contacts.find(p => p.id === id);
-            cb(contact);
-        });
-    }
-
-    static updateContact(id, name, dob, tel, email){
-        getContactsFromFile(contacts => {
-            const existingContactIndex = contacts.findIndex(cont => cont.id === id);
-            const existingContact = contacts[existingContactIndex];
-            let updatedContact;
-            if(existingContact){
-                updatedContact = {...existingContact};
-                updatedContact.name = name;
-                updatedContact.dob = dob;
-                updatedContact.tel = tel;
-                updatedContact.email = email;
-                contacts[existingContactIndex] = updatedContact;
-            }
-            fs.writeFile(p, JSON.stringify(contacts), (err) => {
+    static findById(id) {
+        const db = getDb();
+        return db
+            .collection('contact-list')
+            .find({_id : new mongoDb.ObjectId(id) })
+            .next()
+            .then(contact => {
+                console.log(contact);
+                return contact;
+            })
+            .catch(err => {
                 console.log(err);
-           });
-        });
+            });
     }
 }
