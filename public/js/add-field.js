@@ -40,7 +40,6 @@ function hide_info(id){
 function show_info(id, count){
     for(var i=0; i<count; i++){
         // document.getElementById(id).style.display = 'none';
-        console.log(id+'2');
         document.getElementsByClassName('extendable')[i].style.display = 'none';
         document.getElementsByClassName('show_i')[i].style.display = 'block';
         document.getElementsByClassName('hide_i')[i].style.display = 'none';

@@ -65,6 +65,7 @@
                 <div class="form-control">
                     <input class="input" type="hidden" name="_id" value="<%= contact._id %>" id="email" placeholder="Email" required>
                 </div>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
                 <button class="btn" type="submit">Update</button>
             </form>
         </div>

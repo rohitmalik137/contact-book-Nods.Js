@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-<<<<<<< HEAD
 const contactSchema = new Schema({
     name: {
         type: String,
@@ -19,24 +18,6 @@ const contactSchema = new Schema({
     email: {
         type: Array,
         required: true
-=======
-const getContactsFromFile = (cb) => {
-    fs.readFile(p, (err, fileContent) => {
-        if(err){
-            return cb([]);
-        }
-        cb(JSON.parse(fileContent));
-    });
-}
-
-module.exports = class Contact {
-    constructor(name, dob, tel, email, id){
-        this.name = name;
-        this.dob = dob;
-        this.tel = tel;
-        this.email = email;
-        this._id = id ? new mongoDb.ObjectId(id) : null;
->>>>>>> 33f79fd3781f0523049f607cb822f990737bd372
     }
 });
 
@@ -49,7 +30,6 @@ module.exports = mongoose.model('Contact', contactSchema);
 
 // const p = path.join(path.dirname(process.mainModule.filename), 'data', 'contacts.json');
 
-<<<<<<< HEAD
 // const getContactsFromFile = (cb) => {
 //     fs.readFile(p, (err, fileContent) => {
 //         if(err){
@@ -131,20 +111,3 @@ module.exports = mongoose.model('Contact', contactSchema);
 //             });
 //     }
 // }
-=======
-    static findById(id) {
-        const db = getDb();
-        return db
-            .collection('contact-list')
-            .find({_id : new mongoDb.ObjectId(id) })
-            .next()
-            .then(contact => {
-                console.log(contact);
-                return contact;
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }
-}
->>>>>>> 33f79fd3781f0523049f607cb822f990737bd372

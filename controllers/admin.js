@@ -3,7 +3,8 @@ const Contact = require('../models/contact');
 exports.getAddContact = (req, res, next) => {
     res.render('admin/add-contact', {
         pageTitle: 'Add Contacts',
-        path: '/add-contact'
+        path: '/add-contact',
+        isAuthenticated : req.session.isLoggedIn
     });
 };
 
@@ -45,7 +46,8 @@ exports.getContact = (req, res, next) => {
                 is_tel_string: is_tel_string,
                 is_email_string: is_email_string,
                 firstTelEl: firstTelEl,
-                firstEmailEl: firstEmailEl
+                firstEmailEl: firstEmailEl,
+                isAuthenticated : req.session.isLoggedIn
             });
         })
         .catch(err => {

@@ -30,6 +30,7 @@
                                         <button class="btn" type="submit" name="Edit">Edit</button>
                                     </a>
                                     <form action="/delete-contact/<%= cont._id %>" method="post">
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
                                         <button class="btn danger" type="submit" name="Remove">Remove</button>
                                     </form>
                                 </div>
