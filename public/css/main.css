@@ -13,6 +13,10 @@ form{
   display: inline;
 }
 
+.centered {
+  text-align: center;
+}
+
 .main-header__nav {
     height: 100%;
     display: flex;
@@ -51,35 +55,51 @@ form{
 }
 
 .btn {
-    display: inline-block;
-    padding: 0.25rem 1rem;
-    text-decoration: none;
-    font: inherit;
-    border: 1px solid #00695c;
-    color: #00695c;
-    background: white;
-    border-radius: 3px;
-    cursor: pointer;
-    margin: 5px;
-  }
-  
-  .btn:hover,
-  .btn:active {
-    background-color: #00695c;
-    color: white;
-  }
-  
-  .btn.danger {
-    color: red;
-    border-color: red;
-  }
-  
-  .btn.danger:hover,
-  .btn.danger:active {
-    background: red;
-    color: white;
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  text-decoration: none;
+  font: inherit;
+  border: 1px solid #00695c;
+  color: #00695c;
+  background: white;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.btn:hover,
+.btn:active {
+  background-color: #00695c;
+  color: white;
+}
+
+.btn.danger {
+  color: red;
+  border-color: red;
+}
+
+.btn.danger:hover,
+.btn.danger:active {
+  background: red;
+  color: white;
+}
+
+i{
+  cursor: pointer;
   }
 
-  i{
-    cursor: pointer;
-  }
+.user-message{
+  margin: auto;
+  padding: .5rem;
+  border: 1px solid rgb(95, 95, 255);
+  width: 50%;
+  border-radius: 3px;
+  background: rgb(173, 173, 255);
+  text-align: center;
+}
+
+.user-message--error{
+  border: 1px solid red;
+  background: rgb(255, 178, 178);
+  color: red;
+}
