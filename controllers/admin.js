@@ -1,9 +1,11 @@
+const { validationResult } = require('express-validator');
 const Contact = require('../models/contact');
 
 exports.getAddContact = (req, res, next) => {
     res.render('admin/add-contact', {
         pageTitle: 'Add Contacts',
         path: '/add-contact',
+        errorMessage: false
     });
 };
 
@@ -15,6 +17,15 @@ exports.postAddContact = (req, res, next) => {
     const tel = req.body[tele];
     const email = req.body[mail];
     const userId = req.user._id;
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        console.log(errors.array());
+        return res.status(422).render('admin/add-contact', {
+            pageTitle: 'Add Contacts',
+            path: '/add-contact',
+            errorMessage: errors.array()[0].msg
+        });
+    }
     const contact = new Contact({
         name: name,
         dob: dob,
@@ -23,10 +34,10 @@ exports.postAddContact = (req, res, next) => {
         userId: userId
     });
     contact.save();
-    res.redirect('/');
+    res.redirect('/my-contacts');
 };
 
-exports.getContact = (req, res, next) => {
+exports.getUpdateContact = (req, res, next) => {
     const contactId = req.params.contactId;
     Contact.findById(contactId)
         .then(contact => {

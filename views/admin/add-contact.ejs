@@ -8,7 +8,10 @@
     <main class="main">
         <div class="main__header"><strong>rm-phonebook</strong></div>
         <div class="grid form-outer">
-            <form class="add-contact-form" action="add-contact" method="POST">
+            <% if(errorMessage) { %>
+                <div class="user-message user-message--error"> <%= errorMessage %> </div>
+            <% } %>
+            <form class="add-contact-form" action="add-contact" method="POST" novalidate>
                 <h2>Add Contact</h2><hr>
                 <div class="form-control">
                     <input class="input" type="text" name="name" id="name" placeholder="Name" required>

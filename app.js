@@ -9,7 +9,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 
-const contactRoutes = require('./routes/add-contact');
+const contactRoutes = require('./routes/admin');
 const showContactsRoutes = require('./routes/show-contacts');
 const errorController = require('./controllers/error');
 const authRoutes = require('./routes/auth');
