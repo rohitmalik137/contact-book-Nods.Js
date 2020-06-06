@@ -14,11 +14,13 @@ exports.postAddContact = (req, res, next) => {
     const dob = req.body.dob;
     const tel = req.body[tele];
     const email = req.body[mail];
+    const userId = req.user._id;
     const contact = new Contact({
         name: name,
         dob: dob,
         email: email,
-        tel: tel
+        tel: tel,
+        userId: userId
     });
     contact.save();
     res.redirect('/');
@@ -63,23 +65,30 @@ exports.postUpdatedContact = (req, res, next) => {
     const email = req.body[mail];
     Contact.findById(contactId)
         .then(contact => {
+            //restricting that the wrong user can't update another's contact
+            if(contact.userId.toString() !== req.user._id.toString()){
+                return res.redirect('/');
+            }
             contact.name = name;
             contact.dob = dob;
             contact.tel = tel;
             contact.email = email;
-            return contact.save();
-        })
-        .then(() => {
-            console.log('Updated!!');
-            res.redirect('/');
+            return contact.save()
+                .then(() => {
+                    console.log('Updated!!');
+                    res.redirect('/my-contacts');
+                });
         })
         .catch(err => console.log(err));
 };
 
 exports.deleteContact = (req, res, next) => {
     const contactId = req.params.contactId;
-    Contact.findByIdAndRemove(contactId)
+    Contact.deleteOne({ _id: contactId, userId: req.user._id })
         .then(() => {
-            res.redirect('/');
+            res.redirect('/my-contacts');
+        })
+        .catch(err => {
+            console.log(err);
         })
 };

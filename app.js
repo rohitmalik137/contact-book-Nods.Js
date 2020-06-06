@@ -59,8 +59,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(contactRoutes);
 app.use(showContactsRoutes);
+app.use(contactRoutes);
 app.use(authRoutes);
 
 app.use(errorController.get404);

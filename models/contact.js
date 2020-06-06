@@ -18,6 +18,11 @@ const contactSchema = new Schema({
     email: {
         type: Array,
         required: true
+    },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 });
 
