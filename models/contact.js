@@ -19,6 +19,10 @@ const contactSchema = new Schema({
         type: Array,
         required: true
     },
+    imageUrl: {
+        type: String,
+        required: false
+    },
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',

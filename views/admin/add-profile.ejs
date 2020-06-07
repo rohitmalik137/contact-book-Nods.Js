@@ -1,0 +1,26 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/show-contacts.css">
+    <link rel="stylesheet" href="/css/add-contacts.css">
+</head>
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <main class="main">
+        <div class="main__header"><strong>rm-phonebook</strong></div>
+        <div class="grid form-outer">
+            <% if(errorMessage) { %>
+                <div class="user-message user-message--error"> <%= errorMessage %> </div>
+            <% } %>
+            <form class="add-contact-form" action="/add-profile" method="POST" enctype="multipart/form-data">
+                <h2>Add Profile</h2><hr>
+                <div class="form-control">
+                    <input class="input" type="file" name="profile_pic" id="profile_pic">
+                </div>
+                <input type="hidden" name="contactId" value="<%= contactId %>" >
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
+                <button class="btn" type="submit">Save</button>
+            </form>
+        </div>
+    </main>
+    <script src="/js/add-field.js"></script>
+<%- include('../includes/end.ejs') %>

@@ -12,64 +12,80 @@
         <% if (contacts.length > 0) { %>
             <div class="grid">
                 <% for (let cont of contacts) { %>
-                    <article class="card">
-                        <header class="card__header">
-                            <div class="product__title"><%= cont.name %></div>
-                            <div>
-                                <i style="display: none;" onclick="hide_info('<%= cont._id %>')" id="<%= cont._id %>1" class="fa fa-caret-up fa-2x hide_i" aria-hidden="true"></i>
-                                <i onclick="show_info('<%= cont._id %>', '<%= count %>')" id="<%= cont._id %>2" class="fa fa-caret-down fa-2x show_i" aria-hidden="true"></i>
-                            </div>
-                        </header>
-                        <main style="display: none;" id="<%= cont._id %>" class="extendable">
-                            <div class="extendable__upper-section">
+                    <div class="single_contact">
+                        <a href="/add-profile/<%= cont._id %>" class="profile">
+                            <% if(cont.imageUrl === '') { %>
+                                <img src="/images/user_-512.png" alt="Avatar" class="image">
+                                <div class="middle">
+                                    <div class="text">ADD Profile</div>
+                                </div>
+                            <% }else { %>
+                                <img src="<%= cont.imageUrl %>" alt="Avatar" class="image">
+                                <div class="middle">
+                                    <div class="text">Update Profile</div>
+                                </div>
+                            <% } %>
+                        </a>
+                        <article class="card">
+                            <header class="card__header">
+                                <div class="product__title"><%= cont.name %></div>
                                 <div>
-                                    <%= cont.dob %>
+                                    <i style="display: none;" onclick="hide_info('<%= cont._id %>')" id="<%= cont._id %>1" class="fa fa-caret-up fa-2x hide_i" aria-hidden="true"></i>
+                                    <i onclick="show_info('<%= cont._id %>', '<%= count %>')" id="<%= cont._id %>2" class="fa fa-caret-down fa-2x show_i" aria-hidden="true"></i>
                                 </div>
-                                <div class="extendable__buttons">
-                                    <a href="/update-contact/<%= cont._id %>">
-                                        <button class="btn" type="submit" name="Edit">Edit</button>
-                                    </a>
-                                    <form action="/delete-contact/<%= cont._id %>" method="post">
-                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
-                                        <button class="btn danger" type="submit" name="Remove">Remove</button>
-                                    </form>
+                            </header>
+                            <main style="display: none;" id="<%= cont._id %>" class="extendable">
+                                <div class="extendable__upper-section">
+                                    <div>
+                                        <%= cont.dob %>
+                                    </div>
+                                    <div class="extendable__buttons">
+                                        <a href="/update-contact/<%= cont._id %>">
+                                            <button class="btn" type="submit" name="Edit">Edit</button>
+                                        </a>
+                                        <form action="/delete-contact/<%= cont._id %>" method="post">
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
+                                            <button class="btn danger" type="submit" name="Remove">Remove</button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="extendable__lower-section">
-                                <div>
-                                    <% if(typeof cont.tel === "string") {%> 
-                                        <div class="extendable__lower-section__rows">
-                                            &#9742;<span><%= cont.tel %></span>
-                                        </div>
-                                    <% }else{ %>
-                                        <%  for (let tele of cont.tel) { 
-                                            if(tele !== "") { %>
-                                                <div class="extendable__lower-section__rows">
-                                                    &#9742;<span><%= tele %></span>
-                                                </div>
-                                            <% } 
-                                        } 
-                                    } %>
+                                <div class="extendable__lower-section">
+                                    <div>
+                                        <% if(typeof cont.tel === "string") {%> 
+                                            <div class="extendable__lower-section__rows">
+                                                &#9742;<span><%= cont.tel %></span>
+                                            </div>
+                                        <% }else{ %>
+                                            <%  for (let tele of cont.tel) { 
+                                                if(tele !== "") { %>
+                                                    <div class="extendable__lower-section__rows">
+                                                        &#9742;<span><%= tele %></span>
+                                                    </div>
+                                                <% } 
+                                            } 
+                                        } %>
+                                    </div>
+                                    <div>
+                                        <% if(typeof cont.email === "string") {%> 
+                                            <div class="extendable__lower-section__rows">
+                                                &#9742;<span><%= cont.email %></span>
+                                            </div>
+                                        <% }else{ %>
+                                            <% for (let mail of cont.email) {
+                                                if(mail !== "") { %>
+                                                    <div class="extendable__lower-section__rows">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                        <span><%= mail %></span>
+                                                    </div>
+                                                <% } 
+                                            } 
+                                        } %>
+                                    </div>
                                 </div>
-                                <div>
-                                    <% if(typeof cont.email === "string") {%> 
-                                        <div class="extendable__lower-section__rows">
-                                            &#9742;<span><%= cont.email %></span>
-                                        </div>
-                                    <% }else{ %>
-                                        <% for (let mail of cont.email) {
-                                            if(mail !== "") { %>
-                                                <div class="extendable__lower-section__rows">
-                                                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                    <span><%= mail %></span>
-                                                </div>
-                                            <% } 
-                                        } 
-                                    } %>
-                                </div>
-                            </div>
-                        </main>
-                    </article>
+                            </main>
+                        </article>
+                    </div>
+                    <hr>
                 <% } %>
             </div>
         <% } else { %>

@@ -13,9 +13,6 @@ router.post('/add-contact', [
     body('name')
         .isAlpha()
         .isLength({ min: 3 })
-        .trim(),
-    body('dob')
-        .isISO8601()
         .trim()
     // body('tel[]')
     //     .isNumeric()
@@ -31,7 +28,11 @@ adminController.postAddContact);
 
 router.post('/delete-contact/:contactId', isAuth, adminController.deleteContact);
 
+router.get('/add-profile/:contactId', isAuth, adminController.getAddProfile);
+router.post('/add-profile', isAuth, adminController.postAddProfile);
+
 router.post('/update-contact', isAuth, adminController.postUpdatedContact);
 router.get('/update-contact/:contactId', isAuth, adminController.getUpdateContact);
+
 
 module.exports = router;
