@@ -26,7 +26,7 @@ router.post('/add-contact', [
 isAuth, 
 adminController.postAddContact);
 
-router.post('/delete-contact/:contactId', isAuth, adminController.deleteContact);
+router.delete('/delete-contact/:contactId', isAuth, adminController.deleteContact);
 
 router.get('/add-profile/:contactId', isAuth, adminController.getAddProfile);
 router.post('/add-profile', isAuth, adminController.postAddProfile);

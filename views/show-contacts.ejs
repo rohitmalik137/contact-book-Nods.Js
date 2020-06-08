@@ -12,85 +12,102 @@
         <% if (contacts.length > 0) { %>
             <div class="grid">
                 <% for (let cont of contacts) { %>
-                    <div class="single_contact">
-                        <a href="/add-profile/<%= cont._id %>" class="profile">
-                            <% if(cont.imageUrl === '') { %>
-                                <img src="/images/user_-512.png" alt="Avatar" class="image">
-                                <div class="middle">
-                                    <div class="text">ADD Profile</div>
-                                </div>
-                            <% }else { %>
-                                <img src="<%= cont.imageUrl %>" alt="Avatar" class="image">
-                                <div class="middle">
-                                    <div class="text">Update Profile</div>
-                                </div>
-                            <% } %>
-                        </a>
-                        <article class="card">
-                            <header class="card__header">
-                                <div class="product__title"><%= cont.name %></div>
-                                <div>
-                                    <i style="display: none;" onclick="hide_info('<%= cont._id %>')" id="<%= cont._id %>1" class="fa fa-caret-up fa-2x hide_i" aria-hidden="true"></i>
-                                    <i onclick="show_info('<%= cont._id %>', '<%= count %>')" id="<%= cont._id %>2" class="fa fa-caret-down fa-2x show_i" aria-hidden="true"></i>
-                                </div>
-                            </header>
-                            <main style="display: none;" id="<%= cont._id %>" class="extendable">
-                                <div class="extendable__upper-section">
-                                    <div>
-                                        <%= cont.dob %>
+                    <article>
+                        <div class="single_contact">
+                            <a href="/add-profile/<%= cont._id %>" class="profile">
+                                <% if(cont.imageUrl === '') { %>
+                                    <img src="/images/user_-512.png" alt="Avatar" class="image">
+                                    <div class="middle">
+                                        <div class="text">ADD Profile</div>
                                     </div>
-                                    <div class="extendable__buttons">
-                                        <a href="/update-contact/<%= cont._id %>">
-                                            <button class="btn" type="submit" name="Edit">Edit</button>
-                                        </a>
-                                        <form action="/delete-contact/<%= cont._id %>" method="post">
+                                <% }else { %>
+                                    <img src="<%= cont.imageUrl %>" alt="Avatar" class="image">
+                                    <div class="middle">
+                                        <div class="text">Update Profile</div>
+                                    </div>
+                                <% } %>
+                            </a>
+                            <div class="card">
+                                <header class="card__header">
+                                    <div class="product__title"><%= cont.name %></div>
+                                    <div>
+                                        <i style="display: none;" onclick="hide_info('<%= cont._id %>')" id="<%= cont._id %>1" class="fa fa-caret-up fa-2x hide_i" aria-hidden="true"></i>
+                                        <i onclick="show_info('<%= cont._id %>', '<%= count %>')" id="<%= cont._id %>2" class="fa fa-caret-down fa-2x show_i" aria-hidden="true"></i>
+                                    </div>
+                                </header>
+                                <main style="display: none;" id="<%= cont._id %>" class="extendable">
+                                    <div class="extendable__upper-section">
+                                        <div>
+                                            <%= cont.dob %>
+                                        </div>
+                                        <div class="extendable__buttons">
+                                            <a href="/update-contact/<%= cont._id %>">
+                                                <button class="btn" type="submit" name="Edit">Edit</button>
+                                            </a>
+                                            <input type="hidden" name="contactId" value="<%= cont._id %>" >
                                             <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
-                                            <button class="btn danger" type="submit" name="Remove">Remove</button>
-                                        </form>
+                                            <button class="btn danger" type="button" onclick="deleteContact(this)" name="Remove">Remove</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="extendable__lower-section">
-                                    <div>
-                                        <% if(typeof cont.tel === "string") {%> 
-                                            <div class="extendable__lower-section__rows">
-                                                &#9742;<span><%= cont.tel %></span>
-                                            </div>
-                                        <% }else{ %>
-                                            <%  for (let tele of cont.tel) { 
-                                                if(tele !== "") { %>
-                                                    <div class="extendable__lower-section__rows">
-                                                        &#9742;<span><%= tele %></span>
-                                                    </div>
-                                                <% } 
-                                            } 
-                                        } %>
+                                    <div class="extendable__lower-section">
+                                        <div>
+                                            <% if(typeof cont.tel === "string") {%> 
+                                                <div class="extendable__lower-section__rows">
+                                                    &#9742;<span><%= cont.tel %></span>
+                                                </div>
+                                            <% }else{ %>
+                                                <%  for (let tele of cont.tel) { 
+                                                    if(tele !== "") { %>
+                                                        <div class="extendable__lower-section__rows">
+                                                            &#9742;<span><%= tele %></span>
+                                                        </div>
+                                                    <% } 
+                                                } 
+                                            } %>
+                                        </div>
+                                        <div>
+                                            <% if(typeof cont.email === "string") {%> 
+                                                <div class="extendable__lower-section__rows">
+                                                    &#9742;<span><%= cont.email %></span>
+                                                </div>
+                                            <% }else{ %>
+                                                <% for (let mail of cont.email) {
+                                                    if(mail !== "") { %>
+                                                        <div class="extendable__lower-section__rows">
+                                                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                            <span><%= mail %></span>
+                                                        </div>
+                                                    <% } 
+                                                } 
+                                            } %>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <% if(typeof cont.email === "string") {%> 
-                                            <div class="extendable__lower-section__rows">
-                                                &#9742;<span><%= cont.email %></span>
-                                            </div>
-                                        <% }else{ %>
-                                            <% for (let mail of cont.email) {
-                                                if(mail !== "") { %>
-                                                    <div class="extendable__lower-section__rows">
-                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                        <span><%= mail %></span>
-                                                    </div>
-                                                <% } 
-                                            } 
-                                        } %>
-                                    </div>
-                                </div>
-                            </main>
-                        </article>
-                    </div>
-                    <hr>
+                                </main>
+                            </div>
+                        </div>
+                        <hr>
+                    </article>
                 <% } %>
             </div>
         <% } else { %>
             <h1>No Contacts Found!!</h1>
         <% } %>
+        <section class="pagination">
+            <% if(currentPage !== 1 && previousPage !== 1) { %> 
+                <a href="?page=1">1</a> 
+            <% } %>
+            <% if(hasPreviousPage) { %>
+                <a href="?page=<%= previousPage %>"><%= previousPage %></a>
+            <% } %>
+            <a href="?page=<%= currentPage %>" class="active"><%= currentPage %></a>
+            <% if(hasNextPage) { %>
+                <a href="?page=<%= nextPage %>"><%= nextPage %></a>
+            <% } %>
+            <% if(lastPage !== currentPage && nextPage !== lastPage) { %>
+                <a href="?page=<%= lastPage %>"><%= lastPage %></a>
+            <% } %>
+        </section>
     </main>
     <script src="/js/add-field.js"></script>
+    <script src="/js/admin.js"></script>
 <%- include('includes/end.ejs') %>

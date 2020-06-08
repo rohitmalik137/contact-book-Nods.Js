@@ -1,21 +1,38 @@
 const Contact = require('../models/contact');
 
+const ITEMS_PER_PAGE = 4;
+
 exports.getContact = (req, res, next) => {
-    // console.log('hey there!');
-    Contact.find({userId: req.user._id})
-    .then(contacts => {
-        res.render('show-contacts', {
-            pageTitle: 'My Contacts',
-            contacts: contacts,
-            path: '/my-contacts',
-            count: contacts.length
+    const page = +req.query.page || 1;
+    let totalItems;
+
+    Contact.find()
+        .countDocuments()
+        .then(count => {
+            totalItems = count;
+            return Contact.find({userId: req.user._id})
+                .skip((page - 1) * ITEMS_PER_PAGE)
+                .limit(ITEMS_PER_PAGE);
+        })
+        .then(contacts => {
+            res.render('show-contacts', {
+                pageTitle: 'My Contacts',
+                contacts: contacts,
+                path: '/my-contacts',
+                count: contacts.length,
+                hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+                hasPreviousPage: page > 1,
+                currentPage: page,
+                nextPage: page + 1,
+                previousPage: page - 1,
+                lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+            });
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
-    })
-    .catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
-    });
 };
 
 exports.homePage = (req, res, next) => {

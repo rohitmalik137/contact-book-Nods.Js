@@ -134,11 +134,9 @@ exports.deleteContact = (req, res, next) => {
     const contactId = req.params.contactId;
     Contact.deleteOne({ _id: contactId, userId: req.user._id })
         .then(() => {
-            res.redirect('/my-contacts');
+            res.status(200).json({message: 'Deleting Success!'});
         })
         .catch(err => {
-            const error = new Error(err);
-            error.httpStatusCode = 500;
-            return next(error);
+            res.status(500).json({message: 'Deleting failed!'});
         });
 };
