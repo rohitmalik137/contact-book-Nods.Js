@@ -10,8 +10,8 @@ const router = express.Router();
 
 router.get('/add-contact', isAuth, adminController.getAddContact);
 router.post('/add-contact', [
-    body('name')
-        .isAlpha()
+    body('name', 'Name must be single word.')
+        .isAlphanumeric()
         .isLength({ min: 3 })
         .trim()
     // body('tel[]')

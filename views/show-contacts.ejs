@@ -7,7 +7,7 @@
     <main class="main">
         <div class="main__header"><strong>rm-phonebook</strong></div>
         <div class="search-box">
-            <input class="search-box__input" type="search" name="search" placeholder="&#x1F50D;">
+            <input class="search-box__input" onkeyup="searchContact(this)" type="search" name="search" placeholder="&#x1F50D;">
         </div>
         <% if (contacts.length > 0) { %>
             <div class="grid">
@@ -110,4 +110,5 @@
     </main>
     <script src="/js/add-field.js"></script>
     <script src="/js/admin.js"></script>
+    <script src="/js/search.js"></script>
 <%- include('includes/end.ejs') %>

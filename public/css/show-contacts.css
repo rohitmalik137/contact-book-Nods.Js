@@ -98,6 +98,21 @@ hr{
     padding: 25px 10px;
     text-transform: capitalize;
 }
+
+.extendable{
+    position:relative;
+    animation:animatetop 0.8s;
+}
+@keyframes animatetop{
+    from{
+        top:-50px;
+        opacity:0
+    } 
+    to{
+        top:0;
+        opacity:1
+    }
+}
 .extendable__upper-section{
     display: flex;
     justify-content: space-between;

@@ -9,6 +9,35 @@ exports.getAddContact = (req, res, next) => {
     });
 };
 
+exports.postAddContact = (req, res, next) => {
+    var tele = 'tel[]';
+    var mail = 'email[]';
+    const name = req.body.name;
+    const dob = req.body.dob;
+    const tel = req.body[tele];
+    const email = req.body[mail];
+    const userId = req.user._id;
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        console.log(errors.array());
+        return res.status(422).render('admin/add-contact', {
+            pageTitle: 'Add Contacts',
+            path: '/add-contact',
+            errorMessage: errors.array()[0].msg
+        });
+    }
+    const contact = new Contact({
+        name: name,
+        dob: dob,
+        email: email,
+        tel: tel,
+        userId: userId,
+        imageUrl: ''
+    });
+    contact.save();
+    res.redirect('/my-contacts');
+};
+
 exports.getAddProfile = (req, res, next) => {
     const contactId = req.params.contactId;
     res.render('admin/add-profile', {
@@ -47,35 +76,6 @@ exports.postAddProfile = (req, res, next) => {
             // return next(error);
         });
 }
-
-exports.postAddContact = (req, res, next) => {
-    var tele = 'tel[]';
-    var mail = 'email[]';
-    const name = req.body.name;
-    const dob = req.body.dob;
-    const tel = req.body[tele];
-    const email = req.body[mail];
-    const userId = req.user._id;
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        console.log(errors.array());
-        return res.status(422).render('admin/add-contact', {
-            pageTitle: 'Add Contacts',
-            path: '/add-contact',
-            errorMessage: errors.array()[0].msg
-        });
-    }
-    const contact = new Contact({
-        name: name,
-        dob: dob,
-        email: email,
-        tel: tel,
-        userId: userId,
-        imageUrl: ''
-    });
-    contact.save();
-    res.redirect('/my-contacts');
-};
 
 exports.getUpdateContact = (req, res, next) => {
     const contactId = req.params.contactId;

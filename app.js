@@ -9,6 +9,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const multer = require('multer');
+require('dotenv').config();
 
 const contactRoutes = require('./routes/admin');
 const showContactsRoutes = require('./routes/show-contacts');
@@ -96,10 +97,14 @@ app.use((error, req, res, next) => {
   res.redirect('/500');
 });
 
+const port = process.env.PORT || 3000;
+
 mongoose
     .connect(MONGODB_URI)
     .then(result => {
-        app.listen(3000);
+        app.listen(port, () => {
+          console.log(`Server starting at ${port}`);
+        });
       })
       .catch(err => {
         console.log(err);

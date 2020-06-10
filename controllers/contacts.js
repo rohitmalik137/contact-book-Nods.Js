@@ -1,16 +1,19 @@
 const Contact = require('../models/contact');
+const search = require('../public/js/search');
 
 const ITEMS_PER_PAGE = 4;
 
 exports.getContact = (req, res, next) => {
     const page = +req.query.page || 1;
     let totalItems;
+    search.data.another();
 
     Contact.find()
         .countDocuments()
         .then(count => {
             totalItems = count;
             return Contact.find({userId: req.user._id})
+                .sort({ name: 1})
                 .skip((page - 1) * ITEMS_PER_PAGE)
                 .limit(ITEMS_PER_PAGE);
         })
