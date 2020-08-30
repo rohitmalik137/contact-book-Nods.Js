@@ -1,5 +1,6 @@
 const path = require('path');
 const http = require('http');
+const fs = require('fs');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -9,6 +10,10 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const multer = require('multer');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
+
 require('dotenv').config();
 
 const contactRoutes = require('./routes/admin');
@@ -17,12 +22,12 @@ const errorController = require('./controllers/error');
 const authRoutes = require('./routes/auth');
 const User = require('./models/user');
 
-const MONGODB_URI = 'mongodb+srv://rohit_new:rohit_new@cluster0-po0x5.mongodb.net/contact_book?retryWrites=true&w=majority';
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-po0x5.mongodb.net/contact_book?retryWrites=true&w=majority`;
 
 const app = express();
 const store = new MongoDBStore({
-    uri: MONGODB_URI,
-    collection: 'sessions'
+  uri: MONGODB_URI,
+  collection: 'sessions',
 });
 const csrfProtection = csrf();
 
@@ -32,13 +37,26 @@ const fileStorage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     cb(null, Math.random() + '-' + file.originalname);
-  }
+  },
 });
 
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, 'access.log'),
+  { flags: 'a' }
+);
+
+app.use(helmet());
+app.use(compression());
+app.use(morgan('combined', { stream: accessLogStream }));
+
 const fileFilter = (req, file, cb) => {
-  if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg'){
+  if (
+    file.mimetype === 'image/png' ||
+    file.mimetype === 'image/jpg' ||
+    file.mimetype === 'image/jpeg'
+  ) {
     cb(null, true);
-  }else{
+  } else {
     cb(null, false);
   }
 };
@@ -46,8 +64,10 @@ const fileFilter = (req, file, cb) => {
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('profile_pic'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single('profile_pic')
+);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
@@ -56,7 +76,7 @@ app.use(
     secret: 'my secret',
     resave: false,
     saveUninitialized: false,
-    store: store
+    store: store,
   })
 );
 app.use(csrfProtection);
@@ -67,14 +87,14 @@ app.use((req, res, next) => {
     return next();
   }
   User.findById(req.session.user._id)
-    .then(user => {
-      if(!user){
+    .then((user) => {
+      if (!user) {
         return next();
       }
       req.user = user;
       next();
     })
-    .catch(err => {
+    .catch((err) => {
       next(new Error(err));
     });
 });
@@ -100,12 +120,16 @@ app.use((error, req, res, next) => {
 const port = process.env.PORT || 3000;
 
 mongoose
-    .connect(MONGODB_URI)
-    .then(result => {
-        app.listen(port, () => {
-          console.log(`Server starting at ${port}`);
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  .connect(MONGODB_URI, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then((result) => {
+    app.listen(port, () => {
+      console.log(`Server starting at ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
